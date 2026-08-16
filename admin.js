@@ -3,12 +3,12 @@
 // ADMIN DASHBOARD
 // ============================================
 
-// IMPORTANT:
-// Replace these two values with your Supabase
-// Project URL and anon/public key.
+const SUPABASE_URL =
+  "https://akuiyfasztszalelihvi.supabase.co";
 
-const SUPABASE_URL = "https://akuiyfasztszalelihvi.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_LNCF4fhHCcJUNW1y_vuoIg_eBBLkkPv";
+const SUPABASE_ANON_KEY =
+  "sb_publishable_LNCF4fhHCcJUNW1y_vuoIg_eBBLkkPv";
+
 
 const supabaseClient = window.supabase.createClient(
   SUPABASE_URL,
@@ -62,14 +62,14 @@ loginForm.addEventListener("submit", async (event) => {
 
   const { error } =
     await supabaseClient.auth.signInWithPassword({
-      email,
-      password
+      email: email,
+      password: password
     });
 
   if (error) {
 
     loginError.textContent =
-      "Login failed. Please check your email and password.";
+      "Login failed: " + error.message;
 
     console.error(error);
 
@@ -407,8 +407,6 @@ productForm.addEventListener("submit", async (event) => {
 
   if (productId) {
 
-    // EDIT EXISTING PRODUCT
-
     result =
       await supabaseClient
         .from("products")
@@ -416,8 +414,6 @@ productForm.addEventListener("submit", async (event) => {
         .eq("id", productId);
 
   } else {
-
-    // CREATE NEW PRODUCT
 
     result =
       await supabaseClient
@@ -432,7 +428,8 @@ productForm.addEventListener("submit", async (event) => {
     console.error(result.error);
 
     alert(
-      "Could not save the product."
+      "Could not save the product: " +
+      result.error.message
     );
 
     return;
@@ -549,7 +546,8 @@ window.deleteProduct = async function(productId) {
     console.error(error);
 
     alert(
-      "Could not delete the product."
+      "Could not delete the product: " +
+      error.message
     );
 
     return;
