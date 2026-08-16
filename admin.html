@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>MyLove's Essentials — Admin</title>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "DM Sans", sans-serif;
+      background: #fff7fa;
+      color: #3a2830;
+      min-height: 100vh;
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    /* =========================
+       LOGIN
+       ========================= */
+
+    .login-page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 25px;
+      background:
+        radial-gradient(
+          circle at top left,
+          #f9dce8,
+          transparent 35%
+        ),
+        #fff7fa;
+    }
+
+    .login-card {
+      width: 100%;
+      max-width: 430px;
+      background: white;
+      padding: 40px;
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(90, 45, 65, 0.12);
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .logo-icon {
+      font-size: 42px;
+    }
+
+    .logo h1 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 36px;
+      margin-top: 5px;
+    }
+
+    .logo h1 em {
+      color: #c47a99;
+    }
+
+    .logo p {
+      color: #8b737d;
+      margin-top: 8px;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 7px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 14px 15px;
+      border: 1px solid #ead8df;
+      border-radius: 12px;
+      outline: none;
+    }
+
+    .form-group input:focus {
+      border-color: #c47a99;
+    }
+
+    .login-btn,
+    .primary-btn {
+      width: 100%;
+      border: none;
+      padding: 14px 20px;
+      border-radius: 12px;
+      background: #b96f8e;
+      color: white;
+      font-weight: 700;
+    }
+
+    .login-btn:hover,
+    .primary-btn:hover {
+      opacity: 0.9;
+    }
+
+    .error-message {
+      color: #c0395d;
+      font-size: 14px;
+      margin-top: 15px;
+      text-align: center;
+    }
+
+    /* =========================
+       DASHBOARD
+       ========================= */
+
+    .dashboard {
+      display: none;
+      min-height: 100vh;
+    }
+
+    .dashboard.active {
+      display: block;
+    }
+
+    .topbar {
+      background: white;
+      border-bottom: 1px solid #ead8df;
+      padding: 15px 25px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .topbar-brand {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 26px;
+      font-weight: 700;
+    }
+
+    .topbar-brand em {
+      color: #b96f8e;
+    }
+
+    .logout-btn {
+      border: 1px solid #dfbdcb;
+      background: white;
+      color: #8f4966;
+      padding: 9px 15px;
+      border-radius: 10px;
+      font-weight: 600;
+    }
+
+    .dashboard-container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 30px 20px 60px;
+    }
+
+    .welcome {
+      margin-bottom: 25px;
+    }
+
+    .welcome h2 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 40px;
+    }
+
+    .welcome p {
+      color: #8b737d;
+    }
+
+    /* =========================
+       STATS
+       ========================= */
+
+    .stats {
+      display: grid;
+      grid-template-columns:
+        repeat(3, 1fr);
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .stat-card {
+      background: white;
+      padding: 22px;
+      border-radius: 18px;
+      border: 1px solid #f0dfe5;
+    }
+
+    .stat-card span {
+      color: #8b737d;
+      font-size: 14px;
+    }
+
+    .stat-card strong {
+      display: block;
+      font-size: 30px;
+      margin-top: 7px;
+      color: #a95e7e;
+    }
+
+    /* =========================
+       SECTION
+       ========================= */
+
+    .admin-section {
+      background: white;
+      border-radius: 20px;
+      border: 1px solid #f0dfe5;
+      padding: 25px;
+      margin-bottom: 25px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .section-header h3 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 30px;
+    }
+
+    .add-btn {
+      border: none;
+      background: #b96f8e;
+      color: white;
+      padding: 11px 17px;
+      border-radius: 10px;
+      font-weight: 700;
+    }
+
+    /* =========================
+       PRODUCT FORM
+       ========================= */
+
+    .product-form {
+      display: none;
+      background: #fff7fa;
+      padding: 20px;
+      border-radius: 15px;
+      margin-bottom: 20px;
+    }
+
+    .product-form.active {
+      display: block;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns:
+        repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .full {
+      grid-column: 1 / -1;
+    }
+
+    .product-form input,
+    .product-form textarea,
+    .product-form select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #e7d4dc;
+      border-radius: 10px;
+      background: white;
+      outline: none;
+    }
+
+    .product-form textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .save-btn {
+      border: none;
+      background: #b96f8e;
+      color: white;
+      padding: 11px 20px;
+      border-radius: 10px;
+      font-weight: 700;
+    }
+
+    .cancel-btn {
+      border: 1px solid #dcbeca;
+      background: white;
+      padding: 11px 20px;
+      border-radius: 10px;
+    }
+
+    /* =========================
+       PRODUCTS
+       ========================= */
+
+    .products-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .product-row {
+      display: grid;
+      grid-template-columns:
+        65px 1fr auto;
+      align-items: center;
+      gap: 15px;
+      padding: 13px;
+      border: 1px solid #f0dfe5;
+      border-radius: 13px;
+    }
+
+    .product-thumb {
+      width: 65px;
+      height: 65px;
+      border-radius: 10px;
+      background: #f9e4ec;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      font-size: 25px;
+    }
+
+    .product-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .product-info h4 {
+      margin-bottom: 4px;
+    }
+
+    .product-info p {
+      color: #8b737d;
+      font-size: 13px;
+    }
+
+    .product-actions {
+      display: flex;
+      gap: 7px;
+    }
+
+    .edit-btn,
+    .delete-btn {
+      border: none;
+      padding: 8px 11px;
+      border-radius: 8px;
+      font-weight: 600;
+    }
+
+    .edit-btn {
+      background: #f5e2ea;
+      color: #9b5572;
+    }
+
+    .delete-btn {
+      background: #fde7eb;
+      color: #c0395d;
+    }
+
+    /* =========================
+       ORDERS
+       ========================= */
+
+    .orders-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .order-row {
+      border: 1px solid #f0dfe5;
+      padding: 16px;
+      border-radius: 13px;
+    }
+
+    .order-row strong {
+      color: #a95e7e;
+    }
+
+    .order-row p {
+      margin-top: 5px;
+      color: #76616a;
+      font-size: 14px;
+    }
+
+    .order-status {
+      margin-top: 10px;
+      padding: 8px;
+      border: 1px solid #e7d4dc;
+      border-radius: 8px;
+      background: white;
+    }
+
+    /* =========================
+       MOBILE
+       ========================= */
+
+    @media (max-width: 700px) {
+
+      .login-card {
+        padding: 28px 20px;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .full {
+        grid-column: auto;
+      }
+
+      .section-header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .product-row {
+        grid-template-columns: 55px 1fr;
+      }
+
+      .product-thumb {
+        width: 55px;
+        height: 55px;
+      }
+
+      .product-actions {
+        grid-column: 1 / -1;
+      }
+
+      .welcome h2 {
+        font-size: 34px;
+      }
+
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================
+       LOGIN PAGE
+       ========================= -->
+
+  <section
+    class="login-page"
+    id="loginPage"
+  >
+
+    <div class="login-card">
+
+      <div class="logo">
+
+        <div class="logo-icon">
+          💋
+        </div>
+
+        <h1>
+          MyLove's
+          <em>Essentials</em>
+        </h1>
+
+        <p>
+          Admin Dashboard
+        </p>
+
+      </div>
+
+
+      <form id="loginForm">
+
+        <div class="form-group">
+
+          <label for="email">
+            Email
+          </label>
+
+          <input
+            type="email"
+            id="email"
+            placeholder="Admin email"
+            required
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="password">
+            Password
+          </label>
+
+          <input
+            type="password"
+            id="password"
+            placeholder="Password"
+            required
+          >
+
+        </div>
+
+
+        <button
+          class="login-btn"
+          type="submit"
+        >
+          Login to Dashboard
+        </button>
+
+
+        <p
+          class="error-message"
+          id="loginError"
+        ></p>
+
+      </form>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =========================
+       ADMIN DASHBOARD
+       ========================= -->
+
+  <section
+    class="dashboard"
+    id="dashboard"
+  >
+
+    <header class="topbar">
+
+      <div class="topbar-brand">
+        💋 MyLove's
+        <em>Essentials</em>
+      </div>
+
+      <button
+        class="logout-btn"
+        id="logoutBtn"
+      >
+        Logout
+      </button>
+
+    </header>
+
+
+    <main class="dashboard-container">
+
+      <div class="welcome">
+
+        <h2>
+          Welcome back 💗
+        </h2>
+
+        <p>
+          Manage your store from one place.
+        </p>
+
+      </div>
+
+
+      <!-- STATS -->
+
+      <div class="stats">
+
+        <div class="stat-card">
+
+          <span>
+            Products
+          </span>
+
+          <strong id="productCount">
+            0
+          </strong>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <span>
+            Orders
+          </span>
+
+          <strong id="orderCount">
+            0
+          </strong>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <span>
+            Revenue
+          </span>
+
+          <strong id="revenue">
+            R0
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <!-- PRODUCTS -->
+
+      <section class="admin-section">
+
+        <div class="section-header">
+
+          <h3>
+            Products
+          </h3>
+
+          <button
+            class="add-btn"
+            id="addProductBtn"
+          >
+            + Add Product
+          </button>
+
+        </div>
+
+
+        <!-- PRODUCT FORM -->
+
+        <form
+          class="product-form"
+          id="productForm"
+        >
+
+          <input
+            type="hidden"
+            id="productId"
+          >
+
+
+          <div class="form-grid">
+
+            <div>
+
+              <label>
+                Product name
+              </label>
+
+              <input
+                id="productName"
+                required
+              >
+
+            </div>
+
+
+            <div>
+
+              <label>
+                Category
+              </label>
+
+              <select id="productCategory">
+
+                <option value="Hair">
+                  Hair
+                </option>
+
+                <option value="Fashion">
+                  Fashion
+                </option>
+
+                <option value="Fragrance">
+                  Fragrance
+                </option>
+
+                <option value="Wellness">
+                  Wellness
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div>
+
+              <label>
+                Price (ZAR)
+              </label>
+
+              <input
+                type="number"
+                id="productPrice"
+                min="0"
+                step="0.01"
+                required
+              >
+
+            </div>
+
+
+            <div>
+
+              <label>
+                Stock
+              </label>
+
+              <input
+                type="number"
+                id="productStock"
+                min="0"
+                value="0"
+                required
+              >
+
+            </div>
+
+
+            <div class="full">
+
+              <label>
+                Product image URL
+              </label>
+
+              <input
+                type="url"
+                id="productImage"
+                placeholder="https://..."
+              >
+
+            </div>
+
+
+            <div class="full">
+
+              <label>
+                Description
+              </label>
+
+              <textarea
+                id="productDescription"
+                placeholder="Describe your product..."
+              ></textarea>
+
+            </div>
+
+          </div>
+
+
+          <div class="form-actions">
+
+            <button
+              class="save-btn"
+              type="submit"
+            >
+              Save Product
+            </button>
+
+            <button
+              class="cancel-btn"
+              type="button"
+              id="cancelProduct"
+            >
+              Cancel
+            </button>
+
+          </div>
+
+        </form>
+
+
+        <div
+          class="products-list"
+          id="productsList"
+        >
+          Loading products...
+        </div>
+
+      </section>
+
+
+      <!-- ORDERS -->
+
+      <section class="admin-section">
+
+        <div class="section-header">
+
+          <h3>
+            Orders
+          </h3>
+
+        </div>
+
+
+        <div
+          class="orders-list"
+          id="ordersList"
+        >
+          Loading orders...
+        </div>
+
+      </section>
+
+    </main>
+
+  </section>
+
+
+
+  <!-- Supabase -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="admin.js"></script>
+
+</body>
+        </html>
