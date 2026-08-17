@@ -1,13 +1,12 @@
 // ============================================
-// MYLOVE'S ESSENTIALS
-// STORE APP
+// MYLOVE'S ESSENTIALS - STORE APP
 // ============================================
 
 const SUPABASE_URL =
   "https://akuiyfasztszalelihvi.supabase.co";
 
 const SUPABASE_ANON_KEY =
-  "sb_publishable_LNCF4fhHCcJUNW1y_vuoIg_eBBLkkPv";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFrdWl5ZmFzenRzemFsZWxpaHZpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM5NzU2MTIsImV4cCI6MjA5OTU1MTYxMn0.9J_cl8Wm1RxhRUwt1RnjVKfnM6BwoceqzD2UsobS_ag";
 
 const supabaseClient =
   window.supabase.createClient(
@@ -49,11 +48,87 @@ const cartCount =
 // CART
 // ============================================
 
-let cart =
-  JSON.parse(
-    localStorage.getItem("myloves_cart")
-  ) || [];
+let cart = [];
 
+try {
+  cart =
+    JSON.parse(
+      localStorage.getItem("myloves_cart")
+    ) || [];
+} catch (error) {
+  cart = [];
+}
+
+
+// ============================================
+// CATEGORY ORDER
+// ============================================
+
+const categoryOrder = [
+  "Hair",
+  "Fragrance",
+  "Wellness"
+];
+
+
+// ============================================
+// CATEGORIES WE NO LONGER USE
+// ============================================
+
+function isRemovedCategory(category) {
+
+  if (!category) return false;
+
+  const value =
+    String(category)
+      .trim()
+      .toLowerCase();
+
+  return (
+    value === "handbags" ||
+    value === "handbag" ||
+    value === "fashion" ||
+    value === "bags" ||
+    value === "bag"
+  );
+}
+
+
+// ============================================
+// REMOVE HANDBAGS FROM NAVIGATION
+// ============================================
+
+function removeHandbagsNavigation() {
+
+  document
+    .querySelectorAll(
+      "a, button"
+    )
+    .forEach(element => {
+
+      const text =
+        element.textContent
+          .trim()
+          .toLowerCase();
+
+      if (
+        text === "handbags" ||
+        text === "handbag" ||
+        text === "fashion"
+      ) {
+
+        element.remove();
+
+      }
+
+    });
+
+}
+
+
+// ============================================
+// SAVE CART
+// ============================================
 
 function saveCart() {
 
@@ -65,12 +140,17 @@ function saveCart() {
 }
 
 
+// ============================================
+// UPDATE CART COUNT
+// ============================================
+
 function updateCartCount() {
 
   const count =
     cart.reduce(
       (total, item) =>
-        total + Number(item.quantity),
+        total +
+        Number(item.quantity || 0),
       0
     );
 
@@ -82,9 +162,6 @@ function updateCartCount() {
   }
 
 }
-
-
-updateCartCount();
 
 
 // ============================================
@@ -100,9 +177,7 @@ async function loadProducts() {
 
     <div class="loading-products">
 
-      <div>
-        💗
-      </div>
+      <div>💗</div>
 
       <p>
         Loading our essentials...
@@ -116,17 +191,24 @@ async function loadProducts() {
   const {
     data: products,
     error
-  } = await supabaseClient
+  } =
+    await supabaseClient
 
-    .from("products")
+      .from("products")
 
-    .select("*")
+      .select("*")
 
-    .eq("active", true)
+      // IMPORTANT:
+      // We do NOT use active=true
+      // because your table doesn't have
+      // an active column.
 
-    .order("created_at", {
-      ascending: false
-    });
+      .order(
+        "created_at",
+        {
+          ascending: false
+        }
+      );
 
 
   if (error) {
@@ -135,6 +217,7 @@ async function loadProducts() {
       "Product loading error:",
       error
     );
+
 
     productGrid.innerHTML = `
 
@@ -145,7 +228,7 @@ async function loadProducts() {
         </h3>
 
         <p>
-          Please refresh the page and try again.
+          ${escapeHTML(error.message)}
         </p>
 
       </div>
@@ -157,15 +240,16 @@ async function loadProducts() {
   }
 
 
-  if (!products || products.length === 0) {
+  if (
+    !products ||
+    products.length === 0
+  ) {
 
     productGrid.innerHTML = `
 
       <div class="product-empty">
 
-        <div>
-          🛍️
-        </div>
+        <div>🛍️</div>
 
         <h3>
           Our collection is coming soon.
@@ -184,28 +268,24 @@ async function loadProducts() {
   }
 
 
+  // ============================================
+  // REMOVE HANDBAGS FROM CUSTOMER STORE
+  // ============================================
+
+  const visibleProducts =
+    products.filter(
+      product =>
+        !isRemovedCategory(
+          product.category
+        )
+    );
+
+
   displayProductsByCategory(
-    products
+    visibleProducts
   );
 
 }
-
-
-// ============================================
-// CATEGORY ORDER
-// ============================================
-
-const categoryOrder = [
-
-  "Hair",
-
-  "Fashion",
-
-  "Fragrance",
-
-  "Wellness"
-
-];
 
 
 // ============================================
@@ -226,8 +306,20 @@ function displayProductsByCategory(
     product => {
 
       const category =
-        product.category ||
-        "Other";
+        normalizeCategory(
+          product.category
+        );
+
+
+      if (
+        isRemovedCategory(
+          category
+        )
+      ) {
+
+        return;
+
+      }
 
 
       if (!grouped[category]) {
@@ -255,6 +347,9 @@ function displayProductsByCategory(
     ...Object.keys(grouped).filter(
       category =>
         !categoryOrder.includes(
+          category
+        ) &&
+        !isRemovedCategory(
           category
         )
     )
@@ -297,8 +392,8 @@ function displayProductsByCategory(
 
         </div>
 
-        <div class="category-products">
 
+        <div class="category-products">
         </div>
 
       `;
@@ -334,6 +429,70 @@ function displayProductsByCategory(
 
 
 // ============================================
+// NORMALIZE CATEGORY
+// ============================================
+
+function normalizeCategory(
+  category
+) {
+
+  if (!category) {
+
+    return "Other";
+
+  }
+
+
+  const value =
+    String(category).trim();
+
+
+  const lower =
+    value.toLowerCase();
+
+
+  // HAIR
+  if (
+    lower === "hair" ||
+    lower === "human blend" ||
+    lower === "human blend weave" ||
+    lower === "weave" ||
+    lower === "weaves"
+  ) {
+
+    return "Hair";
+
+  }
+
+
+  // FRAGRANCE
+  if (
+    lower === "fragrance" ||
+    lower === "perfume" ||
+    lower === "perfumes"
+  ) {
+
+    return "Fragrance";
+
+  }
+
+
+  // WELLNESS
+  if (
+    lower === "wellness"
+  ) {
+
+    return "Wellness";
+
+  }
+
+
+  return value;
+
+}
+
+
+// ============================================
 // PRODUCT CARD
 // ============================================
 
@@ -349,6 +508,13 @@ function createProductCard(
 
   card.className =
     "product-card";
+
+
+  const productLink =
+    "product.html?id=" +
+    encodeURIComponent(
+      product.id
+    );
 
 
   const imageHTML =
@@ -376,7 +542,7 @@ function createProductCard(
   card.innerHTML = `
 
     <a
-      href="product.html?id=${encodeURIComponent(product.id)}"
+      href="${productLink}"
       class="product-image"
       aria-label="View ${escapeHTML(product.name)}"
     >
@@ -390,7 +556,11 @@ function createProductCard(
 
       <span class="product-category">
 
-        ${escapeHTML(product.category || "Essentials")}
+        ${escapeHTML(
+          normalizeCategory(
+            product.category
+          )
+        )}
 
       </span>
 
@@ -398,10 +568,12 @@ function createProductCard(
       <h3>
 
         <a
-          href="product.html?id=${encodeURIComponent(product.id)}"
+          href="${productLink}"
         >
 
-          ${escapeHTML(product.name)}
+          ${escapeHTML(
+            product.name
+          )}
 
         </a>
 
@@ -412,7 +584,9 @@ function createProductCard(
 
         <strong>
 
-          R${Number(product.price).toFixed(2)}
+          R${Number(
+            product.price || 0
+          ).toFixed(2)}
 
         </strong>
 
@@ -425,7 +599,6 @@ function createProductCard(
               <button
                 class="quick-add"
                 type="button"
-                data-product-id="${product.id}"
               >
                 +
               </button>
@@ -458,12 +631,11 @@ function createProductCard(
 
     quickAdd.addEventListener(
       "click",
-      async event => {
+      event => {
 
         event.preventDefault();
 
         event.stopPropagation();
-
 
         addProductToCart(
           product,
@@ -482,7 +654,7 @@ function createProductCard(
 
 
 // ============================================
-// QUICK ADD TO CART
+// ADD TO CART
 // ============================================
 
 function addProductToCart(
@@ -498,31 +670,48 @@ function addProductToCart(
     );
 
 
+  const stock =
+    Number(product.stock);
+
+
   if (existing) {
 
-    existing.quantity =
-      Math.min(
-        existing.quantity +
-          quantity,
-        Number(product.stock)
-      );
+    if (
+      stock > 0 &&
+      existing.quantity + quantity >
+        stock
+    ) {
+
+      existing.quantity =
+        stock;
+
+    } else {
+
+      existing.quantity +=
+        quantity;
+
+    }
 
   } else {
 
     cart.push({
 
-      id: product.id,
+      id:
+        product.id,
 
-      name: product.name,
+      name:
+        product.name,
 
-      price: Number(
-        product.price
-      ),
+      price:
+        Number(
+          product.price || 0
+        ),
 
       image_url:
-        product.image_url,
+        product.image_url || "",
 
-      quantity: quantity
+      quantity:
+        quantity
 
     });
 
@@ -535,9 +724,7 @@ function addProductToCart(
 
   renderCart();
 
-
   openCart();
-
 
   showCartMessage();
 
@@ -545,7 +732,7 @@ function addProductToCart(
 
 
 // ============================================
-// CART DISPLAY
+// RENDER CART
 // ============================================
 
 function renderCart() {
@@ -559,9 +746,7 @@ function renderCart() {
 
       <div class="empty-cart">
 
-        <div>
-          🛍️
-        </div>
+        <div>🛍️</div>
 
         <h3>
           Your bag is empty
@@ -597,12 +782,22 @@ function renderCart() {
   cart.forEach(
     (item, index) => {
 
+      const price =
+        Number(
+          item.price || 0
+        );
+
+      const quantity =
+        Number(
+          item.quantity || 0
+        );
+
       const itemTotal =
-        Number(item.price) *
-        Number(item.quantity);
+        price * quantity;
 
 
-      total += itemTotal;
+      total +=
+        itemTotal;
 
 
       const element =
@@ -615,33 +810,7 @@ function renderCart() {
         "cart-item";
 
 
-      const imageHTML =
-        item.image_url
-
-          ? `
-
-            <img
-              src="${escapeHTML(item.image_url)}"
-              alt="${escapeHTML(item.name)}"
-            >
-
-          `
-
-          : `
-            <div class="cart-placeholder">
-              🛍️
-            </div>
-          `;
-
-
       element.innerHTML = `
-
-        <div class="cart-item-image">
-
-          ${imageHTML}
-
-        </div>
-
 
         <div class="cart-item-info">
 
@@ -650,7 +819,7 @@ function renderCart() {
           </h4>
 
           <p>
-            R${Number(item.price).toFixed(2)}
+            R${price.toFixed(2)}
           </p>
 
 
@@ -666,7 +835,7 @@ function renderCart() {
 
 
             <span>
-              ${item.quantity}
+              ${quantity}
             </span>
 
 
@@ -682,8 +851,8 @@ function renderCart() {
 
 
           <button
-            class="remove-cart-item"
             type="button"
+            class="remove-cart-item"
             data-action="remove"
             data-index="${index}"
           >
@@ -694,9 +863,7 @@ function renderCart() {
 
 
         <strong>
-
           R${itemTotal.toFixed(2)}
-
         </strong>
 
       `;
@@ -739,9 +906,21 @@ function renderCart() {
               button.dataset.action;
 
 
-            if (action === "minus") {
+            if (
+              !cart[index]
+            ) {
+
+              return;
+
+            }
+
+
+            if (
+              action === "minus"
+            ) {
 
               cart[index].quantity--;
+
 
               if (
                 cart[index].quantity <= 0
@@ -757,14 +936,18 @@ function renderCart() {
             }
 
 
-            if (action === "plus") {
+            if (
+              action === "plus"
+            ) {
 
               cart[index].quantity++;
 
             }
 
 
-            if (action === "remove") {
+            if (
+              action === "remove"
+            ) {
 
               cart.splice(
                 index,
@@ -790,7 +973,7 @@ function renderCart() {
 
 
 // ============================================
-// CART OPEN
+// OPEN CART
 // ============================================
 
 function openCart() {
@@ -824,7 +1007,7 @@ function openCart() {
 
 
 // ============================================
-// CART CLOSE
+// CLOSE CART
 // ============================================
 
 function closeCartPanel() {
@@ -855,7 +1038,7 @@ function closeCartPanel() {
 
 
 // ============================================
-// CART EVENTS
+// CART BUTTONS
 // ============================================
 
 if (cartBtn) {
@@ -889,12 +1072,12 @@ if (overlay) {
 
 
 // ============================================
-// CATEGORY BUTTONS
+// CATEGORY NAVIGATION
 // ============================================
 
 document
   .querySelectorAll(
-    "[data-category]"
+    ".category-nav [data-category]"
   )
   .forEach(
     button => {
@@ -903,33 +1086,38 @@ document
         "click",
         event => {
 
+          event.preventDefault();
+
+
           const category =
-            button.dataset.category;
+            normalizeCategory(
+              button.dataset.category
+            );
 
 
-          if (!category) return;
+          const section =
+            Array.from(
+              document.querySelectorAll(
+                ".category-section"
+              )
+            ).find(
+              element =>
+                element.dataset.category
+                  .toLowerCase() ===
+                category.toLowerCase()
+            );
 
 
-          setTimeout(
-            () => {
+          if (section) {
 
-              const section =
-                document.querySelector(
-                  `.category-section[data-category="${CSS.escape(category)}"]`
-                );
+            section.scrollIntoView({
+              behavior:
+                "smooth",
+              block:
+                "start"
+            });
 
-
-              if (section) {
-
-                section.scrollIntoView({
-                  behavior: "smooth"
-                });
-
-              }
-
-            },
-            100
-          );
+          }
 
         }
       );
@@ -970,7 +1158,7 @@ function showCartMessage() {
     "#b96f8e";
 
   message.style.color =
-    "white";
+    "#ffffff";
 
   message.style.padding =
     "13px 18px";
@@ -1005,7 +1193,9 @@ function showCartMessage() {
 
 function escapeHTML(value) {
 
-  return String(value)
+  return String(
+    value ?? ""
+  )
 
     .replaceAll(
       "&",
@@ -1036,46 +1226,23 @@ function escapeHTML(value) {
 
 
 // ============================================
-// CHECKOUT
-// ============================================
-
-const checkoutBtn =
-  document.getElementById(
-    "checkoutBtn"
-  );
-
-
-if (checkoutBtn) {
-
-  checkoutBtn.addEventListener(
-    "click",
-    () => {
-
-      if (cart.length === 0) {
-
-        alert(
-          "Your bag is empty."
-        );
-
-        return;
-
-      }
-
-
-      alert(
-        "Checkout will be connected next."
-      );
-
-    }
-  );
-
-}
-
-
-// ============================================
 // START
 // ============================================
 
-loadProducts();
+document.addEventListener(
+  "DOMContentLoaded",
+  () => {
 
-renderCart();
+    // Remove Handbags from the menu
+    removeHandbagsNavigation();
+
+    // Cart
+    updateCartCount();
+
+    renderCart();
+
+    // Products
+    loadProducts();
+
+  }
+);
