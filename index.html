@@ -1,109 +1,96 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
-  <meta
-    name="description"
-    content="MyLove's Essentials — Everything You Need to Look and Feel Your Best."
-  >
+  <meta name="description"
+        content="MyLove's Essentials — Everything You Need to Look and Feel Your Best.">
 
   <title>MyLove's Essentials</title>
 
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap"
-    rel="stylesheet"
-  >
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
 
-  <!-- Store stylesheet -->
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
-  <!-- ============================= -->
-  <!-- ANNOUNCEMENT BAR -->
-  <!-- ============================= -->
+  <!-- ANNOUNCEMENT -->
 
   <div class="announcement">
-    ✨ Luxury beauty, fashion & wellness — curated with love.
+    ✨ Everything You Need to Look and Feel Your Best.
   </div>
 
 
-  <!-- ============================= -->
   <!-- HEADER -->
-  <!-- ============================= -->
 
   <header class="site-header">
 
-    <a
-      href="#home"
-      class="brand"
-      aria-label="MyLove's Essentials Home"
-    >
+    <a href="#home"
+       class="brand"
+       aria-label="MyLove's Essentials Home">
+
       <span>💋</span>
+
       MyLove's <em>Essentials</em>
+
     </a>
 
 
-    <!-- Desktop navigation -->
+    <nav class="desktop-nav">
 
-    <nav
-      class="desktop-nav"
-      aria-label="Main navigation"
-    >
-      <a href="#home">Home</a>
+      <a href="#home">
+        Home
+      </a>
 
-      <a href="#products">Products</a>
+      <a href="#products">
+        Products
+      </a>
 
-      <a href="#about">About</a>
+      <a href="#about">
+        About
+      </a>
 
-      <a href="#delivery">Delivery</a>
+      <a href="#delivery">
+        Delivery
+      </a>
 
-      <a href="#contact">Contact</a>
+      <a href="#contact">
+        Contact
+      </a>
+
     </nav>
 
-
-    <!-- Shopping cart -->
 
     <button
       class="cart-button"
       id="cartBtn"
-      aria-label="Open shopping cart"
-    >
+      aria-label="Open shopping bag">
+
       🛍️
 
       <b id="cartCount">0</b>
+
     </button>
 
   </header>
 
 
-  <!-- ============================= -->
-  <!-- MAIN WEBSITE -->
-  <!-- ============================= -->
 
   <main>
 
-
-    <!-- ============================= -->
-    <!-- HERO SECTION -->
-    <!-- ============================= -->
+    <!-- HERO -->
 
     <section
       class="hero"
-      id="home"
-    >
+      id="home">
 
       <div class="hero-copy">
 
@@ -113,35 +100,39 @@
 
 
         <h1>
+
           Everything You Need
+
           <br>
 
           <i>
             to Look & Feel Your Best.
           </i>
+
         </h1>
 
 
         <p class="hero-text">
-          Discover premium beauty, fashion and wellness
-          essentials selected to make every day feel
-          a little more luxurious.
+
+          Discover premium hair, fragrances
+          and wellness essentials carefully
+          selected for you.
+
         </p>
 
 
         <a
           class="primary-btn"
-          href="#products"
-        >
+          href="#products">
+
           Shop the collection
 
           <span>→</span>
+
         </a>
 
       </div>
 
-
-      <!-- Hero visual -->
 
       <div class="hero-card">
 
@@ -150,13 +141,17 @@
         </div>
 
         <span>
-          NEW SEASON
+          MYLOVE'S ESSENTIALS
         </span>
 
         <strong>
+
           Beauty
+
           <br>
+
           & Elegance
+
         </strong>
 
       </div>
@@ -165,58 +160,55 @@
 
 
 
-    <!-- ============================= -->
-    <!-- CATEGORY STRIP -->
-    <!-- ============================= -->
+    <!-- CATEGORIES -->
 
     <section
       class="category-strip"
-      aria-label="Product categories"
-    >
+      aria-label="Product categories">
+
+
+      <!-- HAIR -->
 
       <a
         href="#products"
-        data-category="Hair"
-      >
+        data-category="Hair">
+
         Human Blend
+
       </a>
 
 
-      <a
-        href="#products"
-        data-category="Fashion"
-      >
-        Handbags
-      </a>
-
+      <!-- PERFUMES -->
 
       <a
         href="#products"
-        data-category="Fragrance"
-      >
+        data-category="Fragrance">
+
         Perfumes
+
       </a>
 
 
+      <!-- WELLNESS -->
+
       <a
         href="#products"
-        data-category="Wellness"
-      >
+        data-category="Wellness">
+
         Wellness
+
       </a>
 
     </section>
 
 
 
-    <!-- ============================= -->
     <!-- PRODUCTS -->
-    <!-- ============================= -->
 
     <section
       class="products-section"
-      id="products"
-    >
+      id="products">
+
 
       <div class="section-heading">
 
@@ -225,7 +217,6 @@
           <p class="eyebrow">
             SHOP OUR EDIT
           </p>
-
 
           <h2>
             Featured Essentials
@@ -236,21 +227,32 @@
 
         <button
           class="filter-btn"
-          id="allProducts"
-        >
+          id="allProducts">
+
           View all
+
         </button>
 
       </div>
 
 
-      <!-- Products will be inserted here
-           by app.js -->
+      <!-- SUPABASE PRODUCTS APPEAR HERE -->
 
       <div
         class="product-grid"
-        id="productGrid"
-      >
+        id="productGrid">
+
+        <div class="loading-products">
+
+          <div>
+            💗
+          </div>
+
+          <p>
+            Loading our essentials...
+          </p>
+
+        </div>
 
       </div>
 
@@ -258,14 +260,11 @@
 
 
 
-    <!-- ============================= -->
     <!-- ABOUT -->
-    <!-- ============================= -->
 
     <section
       class="about"
-      id="about"
-    >
+      id="about">
 
       <div>
 
@@ -275,42 +274,45 @@
 
 
         <h2>
+
           Made for your
+
           <br>
 
           <i>
             everyday glow.
           </i>
+
         </h2>
 
       </div>
 
 
       <p>
-        MyLove's Essentials brings beauty, fashion
-        and wellness together in one elegant destination.
 
-        From statement hair and handbags to fragrances
-        and self-care favourites, we're here to help
-        you feel confident, beautiful and completely
-        yourself.
+        MyLove's Essentials brings premium
+        hair, fragrances and wellness products
+        together in one elegant destination.
+
+        <br><br>
+
+        From beautiful Human Blend Weaves
+        to luxurious perfumes and wellness
+        essentials, everything is selected
+        with you in mind.
+
       </p>
 
     </section>
 
 
 
-    <!-- ============================= -->
-    <!-- INFORMATION SECTION -->
-    <!-- ============================= -->
+    <!-- INFORMATION -->
 
     <section
       class="info-grid"
-      id="delivery"
-    >
+      id="delivery">
 
-
-      <!-- Delivery -->
 
       <article>
 
@@ -318,22 +320,19 @@
           🚚
         </span>
 
-
         <h3>
           Delivery
         </h3>
 
-
         <p>
-          Convenient delivery options for your order.
-          Delivery details can be confirmed at checkout.
+
+          Convenient delivery options
+          are available for your order.
+
         </p>
 
       </article>
 
-
-
-      <!-- Secure checkout -->
 
       <article>
 
@@ -341,22 +340,19 @@
           🔒
         </span>
 
-
         <h3>
           Secure checkout
         </h3>
 
-
         <p>
-          Your store is being prepared for secure
-          online payments and order processing.
+
+          Your order information is
+          handled securely.
+
         </p>
 
       </article>
 
-
-
-      <!-- Contact -->
 
       <article id="contact">
 
@@ -364,15 +360,15 @@
           💬
         </span>
 
-
         <h3>
           Need help?
         </h3>
 
-
         <p>
-          Contact MyLove's Essentials for product,
-          order and delivery assistance.
+
+          Contact MyLove's Essentials
+          for product and order assistance.
+
         </p>
 
       </article>
@@ -383,9 +379,7 @@
 
 
 
-  <!-- ============================= -->
   <!-- FOOTER -->
-  <!-- ============================= -->
 
   <footer>
 
@@ -400,28 +394,31 @@
 
 
     <p>
-      Everything You Need to Look and Feel Your Best.
+
+      Everything You Need to Look and
+      Feel Your Best.
+
     </p>
 
 
     <small>
+
       © 2026 MyLove's Essentials.
       All rights reserved.
+
     </small>
 
   </footer>
 
 
 
-  <!-- ============================= -->
-  <!-- SHOPPING CART -->
-  <!-- ============================= -->
+  <!-- SHOPPING BAG -->
 
   <aside
     class="cart-panel"
     id="cartPanel"
-    aria-hidden="true"
-  >
+    aria-hidden="true">
+
 
     <div class="cart-header">
 
@@ -432,25 +429,21 @@
 
       <button
         id="closeCart"
-        aria-label="Close shopping cart"
-      >
+        aria-label="Close shopping bag">
+
         ×
+
       </button>
 
     </div>
 
 
-    <!-- Cart products -->
-
     <div
       id="cartItems"
-      class="cart-items"
-    >
+      class="cart-items">
 
     </div>
 
-
-    <!-- Cart total -->
 
     <div class="cart-footer">
 
@@ -460,9 +453,8 @@
           Subtotal
         </span>
 
-
         <strong id="cartTotal">
-          R0
+          R0.00
         </strong>
 
       </div>
@@ -470,15 +462,18 @@
 
       <button
         class="primary-btn"
-        id="checkoutBtn"
-      >
+        id="checkoutBtn">
+
         Checkout
+
       </button>
 
 
       <p class="cart-note">
-        Payments and Supabase order processing
-        will be connected in the next build.
+
+        Payments and order processing
+        will be connected to the store.
+
       </p>
 
     </div>
@@ -487,21 +482,85 @@
 
 
 
-  <!-- Dark overlay behind cart -->
+  <!-- OVERLAY -->
 
   <div
     class="overlay"
-    id="overlay"
-  >
+    id="overlay">
   </div>
 
 
 
-  <!-- ============================= -->
-  <!-- JAVASCRIPT -->
-  <!-- ============================= -->
+  <!-- SUPABASE -->
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+  </script>
+
+
+  <!-- STORE JAVASCRIPT -->
 
   <script src="app.js"></script>
 
+
+  <!-- CATEGORY CLICK -->
+
+  <script>
+
+    document
+      .querySelectorAll("[data-category]")
+      .forEach(button => {
+
+        button.addEventListener("click", function () {
+
+          const category =
+            this.dataset.category;
+
+          const productsSection =
+            document.getElementById("products");
+
+          if (productsSection) {
+
+            productsSection.scrollIntoView({
+              behavior: "smooth"
+            });
+
+          }
+
+          setTimeout(() => {
+
+            if (
+              typeof window.filterProductsByCategory ===
+              "function"
+            ) {
+
+              window.filterProductsByCategory(category);
+
+            }
+
+          }, 300);
+
+        });
+
+      });
+
+
+    document
+      .getElementById("allProducts")
+      ?.addEventListener("click", function () {
+
+        if (
+          typeof window.filterProductsByCategory ===
+          "function"
+        ) {
+
+          window.filterProductsByCategory("All");
+
+        }
+
+      });
+
+  </script>
+
 </body>
-  </ht
+  </html>
