@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="MyLove's Essentials product"
+  >
+
+  <title>Product | MyLove's Essentials</title>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "DM Sans", sans-serif;
+      background: #fff8fb;
+      color: #3d2932;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+    }
+
+
+    /* =========================
+       HEADER
+       ========================= */
+
+    .announcement {
+      background: #3d2932;
+      color: white;
+      text-align: center;
+      padding: 9px;
+      font-size: 13px;
+    }
+
+    .header {
+      background: white;
+      border-bottom: 1px solid #f0dce5;
+      padding: 17px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .brand {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 28px;
+      font-weight: 700;
+    }
+
+    .brand em {
+      color: #bd708f;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .back-btn,
+    .cart-btn {
+      border: 1px solid #e5c8d4;
+      background: white;
+      padding: 10px 14px;
+      border-radius: 10px;
+      color: #9e5876;
+      font-weight: 600;
+    }
+
+    .cart-btn {
+      position: relative;
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -7px;
+      right: -7px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #bd708f;
+      color: white;
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+
+    /* =========================
+       PRODUCT
+       ========================= */
+
+    .product-container {
+      max-width: 1150px;
+      margin: auto;
+      padding: 55px 20px 80px;
+    }
+
+    .breadcrumbs {
+      color: #92747f;
+      font-size: 14px;
+      margin-bottom: 30px;
+    }
+
+    .product-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+
+    /* =========================
+       IMAGE
+       ========================= */
+
+    .product-image-container {
+      background: #f9e8ef;
+      border-radius: 25px;
+      overflow: hidden;
+      aspect-ratio: 1 / 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .product-image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .no-image {
+      font-size: 80px;
+    }
+
+
+    /* =========================
+       DETAILS
+       ========================= */
+
+    .category {
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 12px;
+      color: #bd708f;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .product-name {
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(42px, 5vw, 65px);
+      line-height: 0.95;
+      margin-bottom: 18px;
+    }
+
+    .price {
+      font-size: 25px;
+      font-weight: 700;
+      color: #a75b7b;
+      margin-bottom: 22px;
+    }
+
+    .description {
+      color: #745f68;
+      line-height: 1.8;
+      margin-bottom: 25px;
+      white-space: pre-line;
+    }
+
+    .stock {
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .in-stock {
+      color: #48815c;
+      font-weight: 700;
+    }
+
+    .out-stock {
+      color: #c0395d;
+      font-weight: 700;
+    }
+
+
+    /* =========================
+       QUANTITY
+       ========================= */
+
+    .quantity-title {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .quantity {
+      display: flex;
+      width: fit-content;
+      border: 1px solid #dfc5d0;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 18px;
+    }
+
+    .quantity button {
+      border: none;
+      background: white;
+      width: 42px;
+      height: 42px;
+      font-size: 20px;
+    }
+
+    .quantity span {
+      width: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff7fa;
+    }
+
+
+    /* =========================
+       ADD TO CART
+       ========================= */
+
+    .add-cart {
+      width: 100%;
+      border: none;
+      border-radius: 13px;
+      background: #b96f8e;
+      color: white;
+      padding: 16px;
+      font-weight: 700;
+      font-size: 16px;
+      transition: 0.2s;
+    }
+
+    .add-cart:hover {
+      transform: translateY(-2px);
+      opacity: 0.92;
+    }
+
+    .add-cart:disabled {
+      background: #c8b8be;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .continue {
+      display: block;
+      text-align: center;
+      margin-top: 15px;
+      color: #a75b7b;
+      font-weight: 600;
+    }
+
+
+    /* =========================
+       MESSAGE
+       ========================= */
+
+    .message {
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 10px;
+      text-align: center;
+      display: none;
+      background: #f2e8ec;
+    }
+
+
+    /* =========================
+       LOADING
+       ========================= */
+
+    .loading {
+      min-height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .error {
+      text-align: center;
+      padding: 80px 20px;
+    }
+
+    .error h2 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 42px;
+      margin-bottom: 12px;
+    }
+
+
+    /* =========================
+       MOBILE
+       ========================= */
+
+    @media (max-width: 750px) {
+
+      .header {
+        padding: 14px 18px;
+      }
+
+      .brand {
+        font-size: 23px;
+      }
+
+      .back-btn {
+        font-size: 13px;
+        padding: 9px 11px;
+      }
+
+      .product-container {
+        padding: 30px 16px 60px;
+      }
+
+      .product-layout {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+
+      .product-name {
+        font-size: 48px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <!-- =========================
+       ANNOUNCEMENT
+       ========================= -->
+
+  <div class="announcement">
+
+    ✨ Luxury beauty, fashion & wellness — curated with love.
+
+  </div>
+
+
+  <!-- =========================
+       HEADER
+       ========================= -->
+
+  <header class="header">
+
+    <a
+      href="index.html"
+      class="brand"
+    >
+      💋 MyLove's
+      <em>Essentials</em>
+    </a>
+
+
+    <div class="header-actions">
+
+      <a
+        href="index.html#products"
+        class="back-btn"
+      >
+        ← Shop
+      </a>
+
+
+      <button
+        class="cart-btn"
+        id="cartButton"
+      >
+
+        🛍️
+
+        <span
+          class="cart-count"
+          id="cartCount"
+        >
+          0
+        </span>
+
+      </button>
+
+    </div>
+
+  </header>
+
+
+
+  <!-- =========================
+       PRODUCT CONTENT
+       ========================= -->
+
+  <main id="mainContent">
+
+    <div class="loading">
+
+      <div>
+
+        <div style="font-size:40px;">
+          💗
+        </div>
+
+        <p>
+          Loading product...
+        </p>
+
+      </div>
+
+    </div>
+
+  </main>
+
+
+
+  <!-- =========================
+       SUPABASE
+       ========================= -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+  <script>
+
+    const SUPABASE_URL =
+      "https://akuiyfasztszalelihvi.supabase.co";
+
+    const SUPABASE_ANON_KEY =
+      "sb_publishable_LNCF4fhHCcJUNW1y_vuoIg_eBBLkkPv";
+
+
+    const supabaseClient =
+      window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+      );
+
+
+    // =====================================
+    // GET PRODUCT ID FROM URL
+    // =====================================
+
+    const params =
+      new URLSearchParams(
+        window.location.search
+      );
+
+    const productId =
+      params.get("id");
+
+
+    const mainContent =
+      document.getElementById(
+        "mainContent"
+      );
+
+
+    // =====================================
+    // CART
+    // =====================================
+
+    let cart =
+      JSON.parse(
+        localStorage.getItem(
+          "myloves_cart"
+        )
+      ) || [];
+
+
+    function updateCartCount() {
+
+      const count =
+        cart.reduce(
+          (total, item) =>
+            total + Number(item.quantity),
+          0
+        );
+
+      document.getElementById(
+        "cartCount"
+      ).textContent = count;
+
+    }
+
+
+    updateCartCount();
+
+
+    // =====================================
+    // LOAD PRODUCT
+    // =====================================
+
+    async function loadProduct() {
+
+      if (!productId) {
+
+        showError(
+          "Product not found",
+          "No product was selected."
+        );
+
+        return;
+      }
+
+
+      const {
+        data: product,
+        error
+      } = await supabaseClient
+        .from("products")
+        .select("*")
+        .eq("id", productId)
+        .eq("active", true)
+        .maybeSingle();
+
+
+      if (error) {
+
+        console.error(error);
+
+        showError(
+          "Something went wrong",
+          "We couldn't load this product."
+        );
+
+        return;
+      }
+
+
+      if (!product) {
+
+        showError(
+          "Product unavailable",
+          "This product may have been removed or is currently unavailable."
+        );
+
+        return;
+      }
+
+
+      displayProduct(product);
+
+    }
+
+
+    // =====================================
+    // DISPLAY PRODUCT
+    // =====================================
+
+    function displayProduct(product) {
+
+      document.title =
+        product.name +
+        " | MyLove's Essentials";
+
+
+      const hasStock =
+        Number(product.stock) > 0;
+
+
+      const imageHTML =
+        product.image_url
+
+          ? `
+            <img
+              src="${escapeHTML(product.image_url)}"
+              alt="${escapeHTML(product.name)}"
+            >
+          `
+
+          : `
+            <div class="no-image">
+              🛍️
+            </div>
+          `;
+
+
+      mainContent.innerHTML = `
+
+        <div class="product-container">
+
+          <div class="breadcrumbs">
+
+            <a href="index.html">
+              Home
+            </a>
+
+            &nbsp; / &nbsp;
+
+            <a href="index.html#products">
+              ${escapeHTML(product.category)}
+            </a>
+
+            &nbsp; / &nbsp;
+
+            ${escapeHTML(product.name)}
+
+          </div>
+
+
+          <div class="product-layout">
+
+
+            <!-- IMAGE -->
+
+            <div class="product-image-container">
+
+              ${imageHTML}
+
+            </div>
+
+
+            <!-- DETAILS -->
+
+            <div class="product-details">
+
+              <div class="category">
+
+                ${escapeHTML(product.category)}
+
+              </div>
+
+
+              <h1 class="product-name">
+
+                ${escapeHTML(product.name)}
+
+              </h1>
+
+
+              <div class="price">
+
+                R${Number(product.price).toFixed(2)}
+
+              </div>
+
+
+              <p class="description">
+
+                ${
+                  product.description
+                    ? escapeHTML(product.description)
+                    : "A beautiful MyLove's Essentials selection, carefully chosen for you."
+                }
+
+              </p>
+
+
+              <div class="stock">
+
+                ${
+                  hasStock
+
+                    ? `
+                      <span class="in-stock">
+                        ✓ In stock
+                      </span>
+
+                      · ${product.stock} available
+                    `
+
+                    : `
+                      <span class="out-stock">
+                        Out of stock
+                      </span>
+                    `
+                }
+
+              </div>
+
+
+              ${
+                hasStock
+
+                  ? `
+
+                    <div class="quantity-title">
+                      Quantity
+                    </div>
+
+
+                    <div class="quantity">
+
+                      <button
+                        type="button"
+                        id="minusBtn"
+                      >
+                        −
+                      </button>
+
+
+                      <span id="quantity">
+                        1
+                      </span>
+
+
+                      <button
+                        type="button"
+                        id="plusBtn"
+                      >
+                        +
+                      </button>
+
+                    </div>
+
+
+                    <button
+                      class="add-cart"
+                      id="addCartBtn"
+                    >
+                      Add to Bag 🛍️
+                    </button>
+
+
+                    <div
+                      class="message"
+                      id="message"
+                    >
+                    </div>
+
+                  `
+
+                  : `
+
+                    <button
+                      class="add-cart"
+                      disabled
+                    >
+                      Currently unavailable
+                    </button>
+
+                  `
+              }
+
+
+              <a
+                href="index.html#products"
+                class="continue"
+              >
+                ← Continue shopping
+              </a>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      `;
+
+
+      if (hasStock) {
+
+        setupProductActions(
+          product
+        );
+
+      }
+
+    }
+
+
+    // =====================================
+    // PRODUCT ACTIONS
+    // =====================================
+
+    function setupProductActions(product) {
+
+      let quantity = 1;
+
+
+      const quantityDisplay =
+        document.getElementById(
+          "quantity"
+        );
+
+
+      document.getElementById(
+        "minusBtn"
+      ).addEventListener(
+        "click",
+        () => {
+
+          if (quantity > 1) {
+
+            quantity--;
+
+            quantityDisplay.textContent =
+              quantity;
+
+          }
+
+        }
+      );
+
+
+      document.getElementById(
+        "plusBtn"
+      ).addEventListener(
+        "click",
+        () => {
+
+          if (
+            quantity <
+            Number(product.stock)
+          ) {
+
+            quantity++;
+
+            quantityDisplay.textContent =
+              quantity;
+
+          }
+
+        }
+      );
+
+
+      document.getElementById(
+        "addCartBtn"
+      ).addEventListener(
+        "click",
+        () => {
+
+          addToCart(
+            product,
+            quantity
+          );
+
+        }
+      );
+
+    }
+
+
+    // =====================================
+    // ADD TO CART
+    // =====================================
+
+    function addToCart(
+      product,
+      quantity
+    ) {
+
+      const existing =
+        cart.find(
+          item =>
+            item.id === product.id
+        );
+
+
+      if (existing) {
+
+        existing.quantity =
+          Math.min(
+            existing.quantity +
+              quantity,
+            Number(product.stock)
+          );
+
+      } else {
+
+        cart.push({
+
+          id: product.id,
+
+          name: product.name,
+
+          price: Number(
+            product.price
+          ),
+
+          image_url:
+            product.image_url,
+
+          quantity: quantity
+
+        });
+
+      }
+
+
+      localStorage.setItem(
+        "myloves_cart",
+        JSON.stringify(cart)
+      );
+
+
+      updateCartCount();
+
+
+      const message =
+        document.getElementById(
+          "message"
+        );
+
+
+      message.style.display =
+        "block";
+
+      message.textContent =
+        "✓ Added to your bag";
+
+
+      setTimeout(
+        () => {
+
+          message.style.display =
+            "none";
+
+        },
+        2500
+      );
+
+    }
+
+
+    // =====================================
+    // CART BUTTON
+    // =====================================
+
+    document.getElementById(
+      "cartButton"
+    ).addEventListener(
+      "click",
+      () => {
+
+        window.location.href =
+          "index.html#cart";
+
+      }
+    );
+
+
+    // =====================================
+    // ERROR
+    // =====================================
+
+    function showError(
+      title,
+      text
+    ) {
+
+      mainContent.innerHTML = `
+
+        <div class="error">
+
+          <div style="font-size:55px;">
+            💗
+          </div>
+
+          <h2>
+            ${escapeHTML(title)}
+          </h2>
+
+          <p>
+            ${escapeHTML(text)}
+          </p>
+
+          <br>
+
+          <a
+            href="index.html#products"
+            class="back-btn"
+          >
+            ← Back to shop
+          </a>
+
+        </div>
+
+      `;
+
+    }
+
+
+    // =====================================
+    // ESCAPE HTML
+    // =====================================
+
+    function escapeHTML(value) {
+
+      return String(value)
+
+        .replaceAll(
+          "&",
+          "&amp;"
+        )
+
+        .replaceAll(
+          "<",
+          "&lt;"
+        )
+
+        .replaceAll(
+          ">",
+          "&gt;"
+        )
+
+        .replaceAll(
+          '"',
+          "&quot;"
+        )
+
+        .replaceAll(
+          "'",
+          "&#039;"
+        );
+
+    }
+
+
+    // =====================================
+    // START
+    // =====================================
+
+    loadProduct();
+
+  </script>
+
+</body>
+
+  </html>
