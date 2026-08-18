@@ -776,3 +776,48 @@ footer small {
   }
 
   }
+
+/* ============================================
+   PRODUCT IMAGE FIX
+   ============================================ */
+
+.product-image {
+  height: 300px;
+  width: 100%;
+  overflow: hidden;
+  background: linear-gradient(
+    145deg,
+    #f7d7df,
+    #fff2f5
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  padding: 12px;
+}
+
+.product-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 55px;
+}
+
+@media (max-width: 600px) {
+  .product-image {
+    height: 260px;
+  }
+
+  .product-image img {
+    padding: 8px;
+  }
+}
