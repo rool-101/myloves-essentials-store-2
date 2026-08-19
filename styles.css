@@ -821,3 +821,73 @@ footer small {
     padding: 8px;
   }
 }
+
+/* =========================================
+   BEAUTY & ELEGANCE HAIR HERO
+   ========================================= */
+
+.hero-hair-hero {
+  position: relative;
+  min-height: 450px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: #f7d7df;
+}
+
+.hero-hair-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
+  z-index: 0;
+}
+
+.hero-hair-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 241, 245, 0.18),
+    rgba(255, 241, 245, 0.68)
+  );
+  z-index: 1;
+}
+
+.hero-hair-content {
+  position: relative;
+  z-index: 2;
+  padding: 30px;
+  text-shadow: 0 2px 15px rgba(255,255,255,0.55);
+}
+
+.hero-hair-content span {
+  display: block;
+  color: #8f5265;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.hero-hair-content strong {
+  display: block;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 50px;
+  line-height: 0.9;
+  color: #38282d;
+}
+
+@media (max-width: 900px) {
+  .hero-hair-hero {
+    min-height: 360px;
+  }
+
+  .hero-hair-content strong {
+    font-size: 42px;
+  }
+}
