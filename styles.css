@@ -891,3 +891,38 @@ footer small {
     font-size: 42px;
   }
 }
+/* =====================================================
+   CATEGORY BUTTONS
+   ===================================================== */
+
+.category-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border: 1px solid #ead5dc;
+  background: #fff;
+  color: #3d2932;
+  padding: 35px 20px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 28px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.category-button:hover {
+  background: #fcecf2;
+  color: #a75b7b;
+}
+
+.category-button:active {
+  transform: scale(0.98);
+}
+
+/* Make sure the category starts below the sticky header */
+
+#human-blend,
+#perfumes,
+#wellness {
+  scroll-margin-top: 100px;
+}
