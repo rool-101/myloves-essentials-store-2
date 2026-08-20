@@ -926,3 +926,37 @@ footer small {
 #wellness {
   scroll-margin-top: 100px;
 }
+
+/* CHECKOUT INFORMATION CONFIRMATION */
+
+.checkout-confirmation {
+  margin-top: 20px;
+  padding: 16px;
+  background: #fff7f9;
+  border: 1px solid #ead7dc;
+  border-radius: 12px;
+}
+
+.confirmation-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.confirmation-label input {
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  accent-color: #b76e79;
+  flex-shrink: 0;
+}
+
+.checkout-disclaimer {
+  margin-top: 12px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #806c72;
+}
